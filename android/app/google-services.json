@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "533146630759",
+    "project_id": "cheap-shoe-store",
+    "storage_bucket": "cheap-shoe-store.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:533146630759:android:42844fd390a82d596bf2c2",
+        "android_client_info": {
+          "package_name": "com.example.shoe_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOesUxs1jEmwLmCtS7ta4OwhvMXM54Z6A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
