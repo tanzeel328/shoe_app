@@ -4,7 +4,8 @@ import 'package:shoe_app/providers/cart_provider.dart';
 
 class ProductDetailsPage extends StatefulWidget {
   final Map<String, Object> product;
-  const ProductDetailsPage({
+  int selectedSize = 0;
+  ProductDetailsPage({
     super.key,
     required this.product,
   });
@@ -14,7 +15,7 @@ class ProductDetailsPage extends StatefulWidget {
 }
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
-  int selectedSize = 0;
+  var selectedSize = 0;
 
   void onTap() {
     if (selectedSize != 0) {

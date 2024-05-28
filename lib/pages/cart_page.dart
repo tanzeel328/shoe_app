@@ -1,10 +1,22 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shoe_app/models/orderz.dart';
 import 'package:shoe_app/providers/cart_provider.dart';
+import 'package:shoe_app/services/database_service.dart';
 
-class CartPage extends StatelessWidget {
-  const CartPage({super.key});
+class CartPage extends StatefulWidget {
+  const CartPage({
+    super.key,
+  });
 
+  @override
+  State<CartPage> createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
+  final DatabaseService _databaseService = DatabaseService();
+  final TextEditingController addressController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final cart = context.watch<CartProvider>().cart;
@@ -120,19 +132,41 @@ class CartPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(50),
                   ),
                   onPressed: () {
+                    print(cart);
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: const Text('Order Placed'),
-                          content: const Text(
-                              'Your order has been placed successfully.'),
+                          title: const Text('Confirm Order'),
+                          content: TextField(
+                            controller: addressController,
+                            decoration: const InputDecoration(
+                                hintText: 'Enter Address'),
+                          ),
                           actions: <Widget>[
-                            TextButton(
+                            MaterialButton(
                               onPressed: () {
-                                Navigator.of(context).pop(); // Close the dialog
+                                Orderz order = Orderz(
+                                  address: addressController.text,
+                                  orderTime: Timestamp.now(),
+                                  productz: cart.map((item) {
+                                    return {
+                                      'title': item['title'] as Object,
+                                      'price': item['price'] as Object,
+                                      'size': item['size'] as Object,
+                                    };
+                                  }).toList(),
+                                  total: calculateTotalPrice(),
+                                );
+                                _databaseService.addOrder(order);
+
+                                // print(cartz);
+                                Navigator.of(context).pop();
+                                addressController.clear();
                               },
-                              child: const Text('OK'),
+                              color: Theme.of(context).colorScheme.primary,
+                              textColor: Colors.white,
+                              child: const Text('Confirm'),
                             ),
                           ],
                         );
