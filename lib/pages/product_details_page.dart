@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:shoe_app/providers/cart_provider.dart';
 
 class ProductDetailsPage extends StatefulWidget {
-  final Map<String, Object> product;
+  final Map<String, Object?> product;
   int selectedSize = 0;
   ProductDetailsPage({
     super.key,
@@ -17,15 +17,20 @@ class ProductDetailsPage extends StatefulWidget {
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
   var selectedSize = 0;
 
+  var title = '';
+  var price = 0;
+  var imageUrl = '';
+  var company = '';
+
   void onTap() {
     if (selectedSize != 0) {
       Provider.of<CartProvider>(context, listen: false).addProduct(
         {
-          'id': widget.product['id'],
-          'title': widget.product['title'],
-          'price': widget.product['price'],
-          'imageUrl': widget.product['imageUrl'],
-          'company': widget.product['company'],
+          // 'id': widget.product['id'],
+          'title': title,
+          'price': price,
+          'imageUrl': imageUrl,
+          'company': company,
           'size': selectedSize,
         },
       );
@@ -50,6 +55,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   }
 
   @override
+  void initState() {
+    getvals();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -58,14 +69,14 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
       body: Column(
         children: [
           Text(
-            widget.product['title'] as String,
+            title,
             style: Theme.of(context).textTheme.titleLarge,
           ),
           const Spacer(),
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Image.asset(
-              widget.product['imageUrl'] as String,
+            child: Image.network(
+              imageUrl,
               height: 250,
             ),
           ),
@@ -80,7 +91,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'PKR ${widget.product['price']}',
+                  'PKR $price',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(height: 10),
@@ -88,10 +99,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   height: 50,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: (widget.product['sizes'] as List<int>).length,
+                    itemCount: (widget.product['size'] as List<int>).length,
                     itemBuilder: (context, index) {
-                      final size =
-                          (widget.product['sizes'] as List<int>)[index];
+                      final size = (widget.product['size'] as List<int>)[index];
 
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -135,5 +145,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         ],
       ),
     );
+  }
+
+  getvals() {
+    title = widget.product['title'] as String;
+    price = widget.product['price'] as int;
+    imageUrl = widget.product['imageUrl'] as String;
+    company = widget.product['company'] as String;
   }
 }

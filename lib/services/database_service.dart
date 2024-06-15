@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shoe_app/models/orderz.dart';
+import 'package:shoe_app/models/products.dart';
 
 const String ORDER_Collection_REF = 'order';
+const String PRODUCTS_COLLECTION_REF = 'products';
 
 class DatabaseService {
   final _firestore = FirebaseFirestore.instance;
@@ -25,3 +27,4 @@ class DatabaseService {
     _orderRef.doc(orderid).update(order.toJson());
   }
 }
+

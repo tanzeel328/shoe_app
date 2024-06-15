@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shoe_app/global_variables.dart';
+import 'package:shoe_app/models/products.dart';
 import 'package:shoe_app/pages/product_details_page.dart';
 import 'package:shoe_app/widgets/product_card.dart';
 
@@ -17,7 +19,7 @@ class _ProductListState extends State<ProductList> {
 
   @override
   void initState() {
-    super.initState();
+    getAllProducts();
     selectedFilter = filters[0];
   }
 
@@ -165,5 +167,27 @@ class _ProductListState extends State<ProductList> {
         ],
       ),
     );
+  }
+
+  void getAllProducts() async {
+    List<Map<String, Object?>> productsList = [];
+
+    try {
+      QuerySnapshot querySnapshot =
+          await FirebaseFirestore.instance.collection('products').get();
+
+      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+        Productz product = Productz.fromJson(doc.data() as Map<String, Object?>);
+        productsList.add(product.toJson());
+      }
+    } catch (e) {
+      print("Error getting documents: $e");
+    }
+
+    setState(() {
+      products = productsList;
+    });
+    print(products);
+    print(productsList);
   }
 }

@@ -44,7 +44,8 @@ class _CartPageState extends State<CartPage> {
 
                 return ListTile(
                   leading: CircleAvatar(
-                    backgroundImage: AssetImage(cartItem['imageUrl'] as String),
+                    backgroundImage:
+                        NetworkImage(cartItem['imageUrl'] as String),
                     radius: 30,
                   ),
                   trailing: IconButton(
