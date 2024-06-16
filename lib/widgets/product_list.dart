@@ -19,6 +19,7 @@ class _ProductListState extends State<ProductList> {
 
   @override
   void initState() {
+    super.initState();
     getAllProducts();
     selectedFilter = filters[0];
   }
@@ -177,7 +178,8 @@ class _ProductListState extends State<ProductList> {
           await FirebaseFirestore.instance.collection('products').get();
 
       for (QueryDocumentSnapshot doc in querySnapshot.docs) {
-        Productz product = Productz.fromJson(doc.data() as Map<String, Object?>);
+        Productz product =
+            Productz.fromJson(doc.data() as Map<String, Object?>);
         productsList.add(product.toJson());
       }
     } catch (e) {
