@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shoe_app/providers/cart_provider.dart';
 
+// ignore: must_be_immutable
 class ProductDetailsPage extends StatefulWidget {
   final Map<String, Object?> product;
   int selectedSize = 0;

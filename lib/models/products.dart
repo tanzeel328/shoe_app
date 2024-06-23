@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class Productz {
   String company;
   int price;
@@ -29,9 +27,7 @@ class Productz {
       : this(
           company: json['company']! as String,
           price: json['price']! as int,
-          size: json['size'] as List<int>,
-          // ).map((e) => e as int).toList() ??
-          //     [],
+          size: (json['size'] as List).map((item) => item as int).toList(),
           title: json['title']! as String,
           image: json['imageUrl']! as String,
         );

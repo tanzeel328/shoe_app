@@ -232,18 +232,17 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   void _signUp() async {
-    String username = _usernameController.text;
+    // String username = _usernameController.text;
     String email = _emailController.text;
     String password = _passwordController.text;
-    String address = _addressController.text;
+    // String address = _addressController.text;
 
     User? user = await _auth.signUpWithEmailAndPassword(email, password);
 
     if (user != null) {
-      print("User is successfully created");
+      // print("User is successfully created");
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => LoginPage()));
-    } else
-      print("Some error occoured");
+    }
   }
 }

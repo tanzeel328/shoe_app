@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:shoe_app/global_variables.dart';
-import 'package:shoe_app/models/products.dart';
 import 'package:shoe_app/pages/cart_page.dart';
 import 'package:shoe_app/pages/profile_page.dart';
 import 'package:shoe_app/widgets/product_list.dart';
@@ -61,13 +59,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
-  // void getData() async {
-  //   WidgetsFlutterBinding.ensureInitialized();
-  //   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  //   products = await getAllProducts();
-  //   print(products);
-  // }
-
-
 }
