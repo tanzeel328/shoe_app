@@ -5,12 +5,14 @@ class Orderz {
   Timestamp orderTime;
   List<Map<String, Object>> productz;
   int total;
+  String email;
 
   Orderz({
     required this.address,
     required this.orderTime,
     required this.productz,
     required this.total,
+    required this.email,
   });
 
   Map<String, Object?> toJson() {
@@ -18,7 +20,8 @@ class Orderz {
       'address': address,
       'orderTime': orderTime,
       'products': productz,
-      'total': total
+      'total': total,
+      'email': email,
     };
   }
 
@@ -27,6 +30,7 @@ class Orderz {
           address: json['address']! as String,
           orderTime: json['orderTime']! as Timestamp,
           productz: json['products']! as List<Map<String, Object>>,
+          email: json['email']! as String,
           total: json['total']! as int,
         );
 
@@ -35,12 +39,14 @@ class Orderz {
     Timestamp? orderTime,
     List<Map<String, Object>>? productz,
     int? total,
+    String? email,
   }) {
     return Orderz(
       address: address ?? this.address,
       orderTime: orderTime ?? this.orderTime,
       productz: productz ?? this.productz,
       total: total ?? this.total,
+      email: email ?? this.email,
     );
   }
 }

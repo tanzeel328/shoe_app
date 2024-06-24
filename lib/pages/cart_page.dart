@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shoe_app/models/orderz.dart';
@@ -20,7 +21,8 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     final cart = context.watch<CartProvider>().cart;
-
+    final User? uzer = FirebaseAuth.instance.currentUser;
+    final email = uzer?.email;
     // Function to calculate total price
     int calculateTotalPrice() {
       int total = 0;
@@ -148,6 +150,7 @@ class _CartPageState extends State<CartPage> {
                             MaterialButton(
                               onPressed: () {
                                 Orderz order = Orderz(
+                                  email: uzer?.email ?? '',
                                   address: addressController.text,
                                   orderTime: Timestamp.now(),
                                   productz: cart.map((item) {
